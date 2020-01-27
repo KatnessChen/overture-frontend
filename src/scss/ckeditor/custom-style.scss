@@ -1,0 +1,41 @@
+:root {
+  --ck-spacing-unit: 1.2em;
+}
+
+.ck-content {
+  padding: 0 20px;
+  line-height: 1.5;
+  word-break: break-word;
+  ul {
+    padding-left: var(--ck-spacing-unit);
+    list-style: disc;
+  }
+  blockquote {
+    padding: 1.2em 2.4em;
+    margin: 24px 0;
+    width: fit-content;
+    position: relative;
+    border: none;
+    &::before {
+      content: '👌👌';
+      position: absolute;
+      top: 0;
+      left: 0;
+      filter: saturate(0);
+      transform: rotate(180deg);
+    }
+    &::after {
+      content: '👌👌';
+      position: absolute;
+      right: 5px;
+      bottom: 0;
+      filter: saturate(0);
+    }
+  }
+  table {
+    width: 100%;
+  }
+  table, th, td {
+    border: 1px solid #112233;
+  }
+}

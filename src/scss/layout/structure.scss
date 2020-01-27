@@ -1,0 +1,49 @@
+/deep/ .header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  line-height: 1;
+  font-size: 18px;
+  margin-bottom: 12px;
+  box-sizing: border-box;
+  font-weight: bold;
+  color: #123;
+  .header__right {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /deep/ .el-switch {
+      height: 18px;
+      .el-switch__core {
+        height: 18px;
+        &::after {
+          width: 14px;
+          height: 14px;
+        }
+      }
+      .el-switch__label {
+        height: 18px;
+        line-height: 18px;
+        font-size: 12px;
+      }
+    }
+  }
+  .el-button {
+    margin-left: 12px;
+    // padding: 0;
+  }
+}
+
+/deep/ .article-editer-action-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 10px;
+  .text {
+    line-height: 28px;
+    font-size: 14px;
+    margin-right: 10px;
+  }
+}
