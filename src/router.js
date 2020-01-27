@@ -36,7 +36,9 @@ const guard = (to, from, next) => {
 };
 
 export default new Router({
-  mode: 'history',
+  mode: process.env.NODE_ENV === 'production'
+    ? 'hash'
+    : 'history',
   routes: [
     {
       path: '/index',
