@@ -150,7 +150,6 @@ export default {
       else this.createArticle();
     },
     updateArticle() {
-      // console.log('updateArticle');
       this.$store.dispatch('article/updateArticle', this.editorData).then(() => {
         if (this.isEditorAutoSave) {
           this.autoSaveStatusText = '文章已儲存 : )';
@@ -215,7 +214,6 @@ export default {
     'editorData.status': {
       immediate: false,
       handler(status) {
-        // console.log('editorData.status', status);
         if (status === 'draft') this.isEditorAutoSave = true;
         if (status === 'public') this.isEditorAutoSave = false;
       },
@@ -223,11 +221,9 @@ export default {
     isEditorAutoSave: {
       immediate: true,
       handler(autosave) {
-        // console.log('isEditorAutoSave', autosave);
         if (autosave) {
           if (this.timer.length === 0) {
             this.timer.push(setInterval(() => {
-              console.log('auto save');
               this.autoSaveStatusText = '...文章儲存中';
               this.updateArticle();
             }, 10000));

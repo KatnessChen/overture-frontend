@@ -109,7 +109,6 @@ export default {
     onClickRenameCategory(category) {
       this.isEditing = category.id;
       this.input = category.name;
-      console.log(category);
     },
     loadCategories() {
       this.$store.dispatch('category/getCategories');

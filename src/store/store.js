@@ -113,7 +113,6 @@ const auth = {
     register({ state }, payload) {
       const { email, password } = payload;
       firebaseAuth.createUserWithEmailAndPassword(email, password).then((credential) => {
-        console.log(credential.user);
         // const { uid } = firebaseAuth.currentUser;
         // // firebaseDb.ref('/user/' + uid).set({ uid, email });
         const response = {

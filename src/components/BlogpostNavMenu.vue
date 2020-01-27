@@ -62,7 +62,6 @@ export default {
     },
     onSignOut() {
       this.$store.dispatch('auth/signout').then(() => {
-        // console.log(this.$route.path);
         if (this.$route.path !== '/index') {
           this.$router.push({ path: '/index' });
         }
