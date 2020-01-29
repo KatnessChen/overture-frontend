@@ -3,7 +3,6 @@
     <el-col :span="24">
       <div class="header">
         <p>分類列表</p>
-        <p>Sorter, Filter</p>
       </div>
       <el-input
         class="category-input"
@@ -132,7 +131,7 @@ export default {
 
 <style lang="scss" scoped>
 .category-input {
-  width: 270px;
+  width: 266px;
 }
 .el-row {
   .el-col {

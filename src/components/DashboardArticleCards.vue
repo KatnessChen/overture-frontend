@@ -9,7 +9,6 @@
     >
       <div slot="header">
         <span class="header__title">{{ a.title }}</span>
-        <Button type="plain" label="預覽"/>
         <Button type="plain" label="編輯" @click="onUpdateArticle(a)"/>
         <Button type="plain" label="刪除" @click="$emit('onDeleteArticle', a)"/>
       </div>
