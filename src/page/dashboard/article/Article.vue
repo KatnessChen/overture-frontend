@@ -3,10 +3,6 @@
     <el-col :span="10">
       <div class="header">
         <p>文章列表</p>
-        <p>條列 / 格狀</p>
-      </div>
-      <div class="header">
-        <p>Filter, Sorter</p>
         <el-button size="mini" type="primary" @click="resetEditor" round>新增</el-button>
       </div>
       <DashboardArticleCards
