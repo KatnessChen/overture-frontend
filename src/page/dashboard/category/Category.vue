@@ -70,10 +70,15 @@ export default {
           categoryId: this.isEditing,
         }).then(() => {
           this.$message({
-            message: '已更名新名稱！',
+            message: '已更新名稱！',
             type: 'success',
           });
           this.loadCategories();
+        }).catch((err) => {
+          this.$message({
+            message: err.data.message,
+            type: 'warning',
+          });
         });
       } else {
         // 新增分類
@@ -84,6 +89,11 @@ export default {
           });
           this.input = '';
           this.loadCategories();
+        }).catch((err) => {
+          this.$message({
+            message: err.data.message,
+            type: 'warning',
+          });
         });
       }
     },
@@ -101,6 +111,11 @@ export default {
               type: 'success',
             });
             this.loadCategories();
+          }).catch((err) => {
+            this.$message({
+              message: err.data.message,
+              type: 'warning',
+            });
           });
         });
       }

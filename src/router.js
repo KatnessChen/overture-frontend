@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import firebase from '@/connections/firebase';
-import store from '@/store/store';
 
 Vue.use(Router);
 
@@ -19,8 +18,6 @@ const category = require('./page/dashboard/category/Category.vue').default;
 const comment = require('./page/dashboard/comment/Comment.vue').default;
 
 const firebaseAuth = firebase.auth();
-
-// const routerMode = process.env.NODE_ENV === 'production' ? '' : 'history';
 
 const guard = (to, from, next) => {
   const unsubscribe = firebaseAuth.onAuthStateChanged((user) => {

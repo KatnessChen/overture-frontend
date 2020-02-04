@@ -7,7 +7,7 @@ const firebaseAuth = firebase.auth();
 
 Vue.use(Vuex);
 
-const url = 'https://overture-blog.herokuapp.com';
+const url = 'http://172.16.64.119:3000';
 
 const article = {
   namespaced: true,
@@ -21,41 +21,53 @@ const article = {
       });
     },
     createArticle(context, payload) {
-      Axios({
-        method: 'post',
-        url: `${url}/article`,
-        data: {
-          title: payload.title,
-          content: payload.content,
-          categoryId: payload.categoryId,
-          status: payload.status,
-          heroImageBase64: payload.heroImageBase64,
-          timestamp: (new Date()).getTime(),
-        },
+      return new Promise((resolve, reject) => {
+        Axios({
+          method: 'post',
+          url: `${url}/article`,
+          data: {
+            userAccount: firebaseAuth.currentUser.email,
+            title: payload.title,
+            content: payload.content,
+            categoryId: payload.categoryId,
+            status: payload.status,
+            heroImageBase64: payload.heroImageBase64,
+            timestamp: (new Date()).getTime(),
+          },
+        }).then((res) => { resolve(res); })
+          .catch((err) => { reject(err.response); });
       });
     },
     updateArticle(context, payload) {
-      Axios({
-        method: 'put',
-        url: `${url}/article/update`,
-        data: {
-          title: payload.title,
-          content: payload.content,
-          categoryId: payload.categoryId,
-          articleId: payload.articleId,
-          status: payload.status,
-          heroImageBase64: payload.heroImageBase64,
-          timestamp: (new Date()).getTime(),
-        },
+      return new Promise((resolve, reject) => {
+        Axios({
+          method: 'put',
+          url: `${url}/article/update`,
+          data: {
+            userAccount: firebaseAuth.currentUser.email,
+            title: payload.title,
+            content: payload.content,
+            categoryId: payload.categoryId,
+            articleId: payload.articleId,
+            status: payload.status,
+            heroImageBase64: payload.heroImageBase64,
+            timestamp: (new Date()).getTime(),
+          },
+        }).then((res) => { resolve(res); })
+          .catch((err) => { reject(err.response); });
       });
     },
     deleteArticle(context, payload) {
-      Axios({
-        method: 'delete',
-        url: `${url}/article/delete`,
-        data: {
-          id: payload,
-        },
+      return new Promise((resolve, reject) => {
+        Axios({
+          method: 'delete',
+          url: `${url}/article/delete`,
+          data: {
+            userAccount: firebaseAuth.currentUser.email,
+            id: payload,
+          },
+        }).then((res) => { resolve(res); })
+          .catch((err) => { reject(err.response); });
       });
     },
   },
@@ -73,27 +85,43 @@ const category = {
       });
     },
     createCategory({ state }, payload) {
-      Axios({
-        method: 'post',
-        url: `${url}/category`,
-        data: { name: payload },
+      return new Promise((resolve, reject) => {
+        Axios({
+          method: 'post',
+          url: `${url}/category`,
+          data: {
+            userAccount: firebaseAuth.currentUser.email,
+            name: payload,
+          },
+        }).then((res) => { resolve(res); })
+          .catch((err) => { reject(err.response); });
       });
     },
     deleteCategory({ state }, payload) {
-      Axios({
-        method: 'delete',
-        url: `${url}/category/delete`,
-        data: { categoryId: payload },
+      return new Promise((resolve, reject) => {
+        Axios({
+          method: 'delete',
+          url: `${url}/category/delete`,
+          data: {
+            userAccount: firebaseAuth.currentUser.email,
+            categoryId: payload,
+          },
+        }).then((res) => { resolve(res); })
+          .catch((err) => { reject(err.response); });
       });
     },
     renameCategory({ state }, payload) {
-      Axios({
-        method: 'put',
-        url: `${url}/category/rename`,
-        data: {
-          categoryId: payload.categoryId,
-          categoryName: payload.newName,
-        },
+      return new Promise((resolve, reject) => {
+        Axios({
+          method: 'put',
+          url: `${url}/category/rename`,
+          data: {
+            userAccount: firebaseAuth.currentUser.email,
+            categoryId: payload.categoryId,
+            categoryName: payload.newName,
+          },
+        }).then((res) => { resolve(res); })
+          .catch((err) => { reject(err.response); });
       });
     },
   },

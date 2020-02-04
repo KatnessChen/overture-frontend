@@ -159,17 +159,29 @@ export default {
           });
         }
         this.loadArticles();
+      }).catch((err) => {
+        this.$message({
+          message: err.data.message,
+          type: 'warning',
+        });
       });
     },
     createArticle() {
-      this.$store.dispatch('article/createArticle', this.editorData).then(() => {
-        this.$message({
-          message: `您新增了文章：${this.editorData.title}`,
-          type: 'success',
+      this.$store.dispatch('article/createArticle', this.editorData)
+        .then(() => {
+          this.$message({
+            message: `您新增了文章：${this.editorData.title}`,
+            type: 'success',
+          });
+          this.resetEditor();
+          this.loadArticles();
+        })
+        .catch((err) => {
+          this.$message({
+            message: err.data.message,
+            type: 'warning',
+          });
         });
-        this.resetEditor();
-        this.loadArticles();
-      });
     },
     onDeleteArticle(article) {
       this.$confirm(`確定刪除「${article.title}」？`, '提示', {
@@ -178,11 +190,16 @@ export default {
         type: 'warning',
       }).then(() => {
         this.$store.dispatch('article/deleteArticle', article.id).then(() => {
-          this.$store.dispatch('article/loadArticles').then(() => {
-            this.$message({
-              type: 'success',
-              message: '删除成功!',
-            });
+          this.$message({
+            type: 'success',
+            message: '删除成功!',
+          });
+          this.$store.dispatch('article/loadArticles');
+        }).catch((err) => {
+          // console.log(err.data.message);
+          this.$message({
+            message: err.data.message,
+            type: 'warning',
           });
         });
       }).catch(() => {
