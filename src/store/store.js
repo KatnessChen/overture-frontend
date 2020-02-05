@@ -7,7 +7,7 @@ const firebaseAuth = firebase.auth();
 
 Vue.use(Vuex);
 
-const url = 'http://172.16.64.119:3000';
+const url = 'https://overture-blog.herokuapp.com';
 
 const article = {
   namespaced: true,
