@@ -13,6 +13,12 @@ const article = {
   namespaced: true,
   state: {
     articles: [],
+    editingArticleId: '', // 正在編輯的文章
+  },
+  mutations: {
+    setEditingArticleId(state, payload) {
+      state.editingArticleId = payload;
+    },
   },
   actions: {
     loadArticles({ state }) {

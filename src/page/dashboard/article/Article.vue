@@ -91,19 +91,9 @@ export default {
     isUpdate: false,
     isShowHeroImagePop: false,
     autoSaveStatusText: '...等待中',
-    // ckeditor
     isEditorAutoSave: false,
     editor: ClassicEditor,
-    editorData: {
-      title: '',
-      content: '',
-      categoryId: '',
-      articleId: '',
-      status: 'draft',
-      heroImageBase64: '',
-    },
     editorConfig: {
-      // The configuration of the editor.
       toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
     },
     timer: [],
@@ -124,14 +114,9 @@ export default {
     loadArticles() {
       this.$store.dispatch('article/loadArticles');
     },
-    onEmitUpdateArticle(article) {
+    onEmitUpdateArticle(id) {
       this.isUpdate = true;
-      this.editorData.title = article.title;
-      this.editorData.content = article.content;
-      this.editorData.categoryId = article.categoryId;
-      this.editorData.articleId = article.id;
-      this.editorData.status = article.status;
-      this.editorData.heroImageBase64 = article.heroImageBase64;
+      this.$store.commit('article/setEditingArticleId', id);
     },
     onClickUpdateOrCreateArticle() {
       if (!this.checkArticleForm()) {
@@ -196,7 +181,6 @@ export default {
           });
           this.$store.dispatch('article/loadArticles');
         }).catch((err) => {
-          // console.log(err.data.message);
           this.$message({
             message: err.data.message,
             type: 'warning',
@@ -216,11 +200,7 @@ export default {
     },
     resetEditor() {
       this.isUpdate = false;
-      this.editorData.content = '';
-      this.editorData.title = '';
-      this.editorData.content = '';
-      this.editorData.categoryId = '';
-      this.editorData.heroImageBase64 = '';
+      this.$store.commit('article/setEditingArticleId', '');
     },
   },
   watch: {
@@ -253,6 +233,17 @@ export default {
   computed: {
     articles() {
       return this.$store.state.article.articles;
+    },
+    editorData() {
+      const { editingArticleId } = this.$store.state.article;
+      const target = this.articles.find((a) => a.id === editingArticleId);
+      return {
+        title: target ? target.title : '',
+        content: target ? target.content : '',
+        categoryId: target ? target.categoryId : '',
+        status: 'draft',
+        heroImageBase64: target ? target.heroImageBase64 : '',
+      };
     },
     categories() {
       const { categories } = this.$store.state.category;

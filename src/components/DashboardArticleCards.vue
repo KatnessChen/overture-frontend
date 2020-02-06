@@ -3,17 +3,16 @@
     <el-card
       v-for="a in articles"
       class="box-card"
-      :class="{'is-editing': a.id == currentEditingArticleId}"
+      :class="{'is-editing': a.id == $store.state.article.editingArticleId}"
       :key="a.id"
       shadow="hover"
     >
       <div slot="header">
         <span class="header__title">{{ a.title }}</span>
-        <Button type="plain" label="編輯" @click="onUpdateArticle(a)"/>
+        <Button type="plain" label="編輯" @click="onUpdateArticle(a.id)"/>
         <Button type="plain" label="刪除" @click="$emit('onDeleteArticle', a)"/>
       </div>
       <div class="article-meta-data">
-        <!-- <span>作者：{{ a.author || '預設' }}</span> -->
         <span>狀態：{{ toZh(a.status) }}</span>
         <span>類別：{{ a.categoryName || '沒有分類' }}</span>
         <span>{{ toLocaleDateTimeString(a.timestamp) || '0000-00-00 00:00:00'}}</span>
@@ -35,27 +34,16 @@ export default {
       type: Array,
       default: () => [],
     },
-    isShowCurrentEditing: {
-      type: Boolean,
-      default: false,
-    },
   },
   data: () => ({
-    currentEditingArticleId: '',
   }),
   computed: {
     ...mapState(['category/categories']),
   },
-  watch: {
-    isShowCurrentEditing() {
-      if (!this.isShowCurrentEditing) this.currentEditingArticleId = '';
-    },
-  },
   methods: {
     toLocaleDateTimeString: utils.toLocaleDateTimeString,
-    onUpdateArticle(a) {
-      this.currentEditingArticleId = a.id;
-      this.$emit('onUpdateArticle', a);
+    onUpdateArticle(articleId) {
+      this.$store.commit('article/setEditingArticleId', articleId);
     },
     onClickArticle(articleId) {
       this.$emit('onClickArticle', articleId);
