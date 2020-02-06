@@ -13,17 +13,21 @@
               :page-size="app"
               small>
             </el-pagination>
-            <section class="el-cards__wrapper">
+            <section class="el-cards__wrapper"
+              v-loading="displayedArticle.length < 1"
+              element-loading-background="transparent"
+              element-loading-text="載入文章中">
               <el-card
                 class="article__item"
                 :body-style="{ padding: '0px' }"
                 v-for="a in pageredArticles(displayedArticle, app, cp)"
                 :key="a.id"
                 @click.native="onClickArticle(a.id)"
-              >
+                >
                 <div class="article__image"
                   :style="{'background-image': `url('${a.heroImageBase64}')`}"
                 >
+                  >
                   <img v-show="!a.heroImageBase64" src="https://picsum.photos/id/835/400/400">
                 </div>
                 <div class="article__body">

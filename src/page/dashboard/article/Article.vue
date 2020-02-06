@@ -10,6 +10,9 @@
         @onUpdateArticle="onEmitUpdateArticle"
         @onDeleteArticle="onDeleteArticle"
         :isShowCurrentEditing="isUpdate"
+        v-loading="articles.length < 1"
+        element-loading-text="載入文章中"
+        element-loading-background="rgba(255, 255, 255, 0.8)"
       />
     </el-col>
     <el-col :span="14" style="padding-bottom: 20px">
@@ -338,5 +341,9 @@ export default {
   color: $highlight;
   margin-right: 12px;
   font-family: '新細明體';
+}
+
+.dashboardArticleCard__wrapper.el-loading-parent--relative {
+  height: calc(100vh - 60px);
 }
 </style>
