@@ -9,7 +9,7 @@
     >
       <div slot="header">
         <span class="header__title">{{ a.title }}</span>
-        <Button type="plain" label="編輯" @click="$emit('onUpdateArticle', a.id)"/>
+        <Button type="plain" label="編輯" @click="onUpdateArticle(a.id)"/>
         <Button type="plain" label="刪除" @click="$emit('onDeleteArticle', a)"/>
       </div>
       <div class="article-meta-data">
@@ -44,6 +44,7 @@ export default {
     toLocaleDateTimeString: utils.toLocaleDateTimeString,
     onUpdateArticle(articleId) {
       this.$store.commit('article/setEditingArticleId', articleId);
+      this.$emit('onUpdateArticle', articleId);
     },
     onClickArticle(articleId) {
       this.$emit('onClickArticle', articleId);

@@ -7,7 +7,7 @@
       </div>
       <DashboardArticleCards
         :articles="articles"
-        @onUpdateArticle="onEmitUpdateArticle"
+        @onUpdateArticle="setEditorData"
         @onDeleteArticle="onDeleteArticle"
         v-loading="articles.length < 1"
         element-loading-text="載入文章中"
@@ -124,17 +124,16 @@ export default {
     loadArticles() {
       this.$store.dispatch('article/loadArticles');
     },
-    onEmitUpdateArticle(id) {
+    setEditorData(articleId) {
       this.isUpdate = true;
 
-      const article = this.articles.find((item) => item.id === id);
+      const article = this.articles.find((item) => item.id === articleId);
       this.editorData.title = article.title;
       this.editorData.content = article.content;
       this.editorData.categoryId = article.categoryId;
       this.editorData.articleId = article.id;
       this.editorData.status = article.status;
       this.editorData.heroImageBase64 = article.heroImageBase64;
-      this.$store.commit('article/setEditingArticleId', id);
     },
     onClickUpdateOrCreateArticle() {
       if (!this.checkArticleForm()) {
@@ -254,24 +253,9 @@ export default {
     },
   },
   computed: {
-    // isUpdate() {
-    //   if (this.$store.state.article.editingArticleId !== '') return true;
-    //   return false;
-    // },
     articles() {
       return this.$store.state.article.articles;
     },
-    // editorData() {
-    //   const { editingArticleId } = this.$store.state.article;
-    //   const target = this.articles.find((a) => a.id === editingArticleId);
-    //   return {
-    //     title: target ? target.title : '',
-    //     content: target ? target.content : '',
-    //     categoryId: target ? target.categoryId : '',
-    //     status: 'draft',
-    //     heroImageBase64: target ? target.heroImageBase64 : '',
-    //   };
-    // },
     categories() {
       const { categories } = this.$store.state.category;
       return categories;
@@ -280,6 +264,12 @@ export default {
   mounted() {
     this.loadArticles();
     this.$store.dispatch('category/getCategories');
+    setTimeout(() => {
+      const articleId = this.$store.state.article.editingArticleId;
+      if (articleId !== '') {
+        this.setEditorData(articleId);
+      }
+    }, 0);
   },
 };
 </script>
