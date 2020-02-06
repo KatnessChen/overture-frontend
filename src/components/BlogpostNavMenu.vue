@@ -1,11 +1,6 @@
 <template>
   <nav class="nav" v-cloak>
-    <h1 class="logo__wrapper">
-      <router-link tag="span" to="/index">
-        <h1 class="logo-main">OVERTURE</h1>
-      </router-link>
-      <p class="logo-slogan">Murmurs about web and life.</p>
-    </h1>
+    <Logo />
     <div class="nav__item__wrapper">
       <div class="nav__item" v-show="isSignedIn">
         <router-link class="link" to="/dashboard/article">
@@ -13,9 +8,7 @@
         </router-link>
       </div>
       <div class="nav__item" v-show="isSignedIn">
-        <a @click="onSignOut" class="link">
-          登出
-        </a>
+        <Logout />
       </div>
       <div class="nav__item" v-show="!isSignedIn">
         <router-link class="link" to="/auth">
@@ -60,13 +53,6 @@ export default {
     clickMenu(path) {
       this.$router.push(path);
     },
-    onSignOut() {
-      this.$store.dispatch('auth/signout').then(() => {
-        if (this.$route.path !== '/index') {
-          this.$router.push({ path: '/index' });
-        }
-      });
-    },
   },
 };
 </script>
@@ -95,22 +81,6 @@ export default {
     background: linear-gradient(to left, #a437AC, #C4183C);
     opacity: .5;
     z-index: 2;
-  }
-  .logo__wrapper {
-    z-index: 3;
-    position: relative;
-    .logo-main {
-      font-family: 'Inria Serif', serif;
-      font-size: 48px;
-      color: gold;
-      text-shadow: 2.5px 2.5px darkred;
-      cursor: pointer;
-    }
-    .logo-slogan {
-      padding-left: 6px;
-      color: goldenrod;
-      text-shadow: 2.5px 2.5px brown;
-    }
   }
   .nav__item__wrapper {
     display: flex;
