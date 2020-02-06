@@ -26,7 +26,6 @@
                 >
                 <div class="article__image"
                   :style="{'background-image': `url('${a.heroImageBase64}')`}"
-                >
                   >
                   <img v-show="!a.heroImageBase64" src="https://picsum.photos/id/835/400/400">
                 </div>
@@ -45,16 +44,16 @@
               <el-tag
                 v-for="c in categoryStatistics(categories, articles)"
                 :key="c.id"
-                :effect="activatedCategories.includes(c.id) ? 'dark' : 'light'"
-                @click="toggleCategory(c.id)"
+                :effect="activatedCategory === c.id ? 'dark' : 'light'"
+                @click="onClickCategory(c.id)"
               >
                 {{ c.name }} ({{ c.count }})
               </el-tag>
+              <el-tag
+                :effect="activatedCategory === 'all' ? 'dark' : 'light'"
+                @click="onClickCategory('all')"
+              >全部 ({{ articles.length }})</el-tag>
             </section>
-            <!-- <section class="metadata-area-section">
-              <p class="title">月份</p>
-              Comming soon ...
-            </section> -->
           </el-col>
         </el-row>
       </div>
@@ -70,7 +69,7 @@ export default {
   data: () => ({
     cp: 1, // currentPage
     app: 4, // articlesPerPage
-    activatedCategories: ['-LwD2YYmoTQaJ8dw5dsE'], // 預設展示前端分類
+    activatedCategory: '-LwD2YYmoTQaJ8dw5dsE', // 預設展示前端分類
   }),
   methods: {
     toLocaleDateTimeString: utils.toLocaleDateTimeString,
@@ -85,13 +84,8 @@ export default {
     onClickArticle(articleId) {
       this.$router.push({ path: `/blogpost/article/${articleId}` });
     },
-    toggleCategory(categoryId) {
-      if (!this.activatedCategories.includes(categoryId)) {
-        this.activatedCategories.push(categoryId);
-      } else {
-        const index = this.activatedCategories.indexOf(categoryId);
-        this.activatedCategories.splice(index, 1);
-      }
+    onClickCategory(categoryId) {
+      this.activatedCategory = categoryId;
     },
   },
   computed: {
@@ -102,8 +96,9 @@ export default {
       return this.$store.state.article.articles.filter((item) => item.status === 'public');
     },
     displayedArticle() {
+      if (this.activatedCategory === 'all') return this.articles;
       return this.articles
-        .filter((item) => this.activatedCategories.includes(item.categoryId));
+        .filter((item) => this.activatedCategory === item.categoryId);
     },
   },
   mounted() {
@@ -182,6 +177,7 @@ export default {
               flex-wrap: wrap;
               box-sizing: border-box;
               font-size: 16px;
+              border-top: 2px solid #123;
               .article__body__title {
                 @include text-hidden(2);
                 font-size: 23px;
@@ -211,9 +207,6 @@ export default {
   width: fit-content;
   margin-bottom: 5px;
   cursor: pointer;
-  &.active {
-
-  }
   &:not(:last-child) {
     margin-right: 5px;
   }
