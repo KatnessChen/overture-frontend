@@ -9,7 +9,6 @@
         :articles="articles"
         @onUpdateArticle="onEmitUpdateArticle"
         @onDeleteArticle="onDeleteArticle"
-        :isShowCurrentEditing="isUpdate"
         v-loading="articles.length < 1"
         element-loading-text="載入文章中"
         element-loading-background="rgba(255, 255, 255, 0.8)"
@@ -99,6 +98,14 @@ export default {
     editorConfig: {
       toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
     },
+    editorData: {
+      title: '',
+      content: '',
+      categoryId: '',
+      articleId: '',
+      status: 'draft',
+      heroImageBase64: '',
+    },
     timer: [],
   }),
   methods: {
@@ -119,6 +126,14 @@ export default {
     },
     onEmitUpdateArticle(id) {
       this.isUpdate = true;
+
+      const article = this.articles.find((item) => item.id === id);
+      this.editorData.title = article.title;
+      this.editorData.content = article.content;
+      this.editorData.categoryId = article.categoryId;
+      this.editorData.articleId = article.id;
+      this.editorData.status = article.status;
+      this.editorData.heroImageBase64 = article.heroImageBase64;
       this.$store.commit('article/setEditingArticleId', id);
     },
     onClickUpdateOrCreateArticle() {
@@ -203,6 +218,11 @@ export default {
     },
     resetEditor() {
       this.isUpdate = false;
+      this.editorData.content = '';
+      this.editorData.title = '';
+      this.editorData.content = '';
+      this.editorData.categoryId = '';
+      this.editorData.heroImageBase64 = '';
       this.$store.commit('article/setEditingArticleId', '');
     },
   },
@@ -234,20 +254,24 @@ export default {
     },
   },
   computed: {
+    // isUpdate() {
+    //   if (this.$store.state.article.editingArticleId !== '') return true;
+    //   return false;
+    // },
     articles() {
       return this.$store.state.article.articles;
     },
-    editorData() {
-      const { editingArticleId } = this.$store.state.article;
-      const target = this.articles.find((a) => a.id === editingArticleId);
-      return {
-        title: target ? target.title : '',
-        content: target ? target.content : '',
-        categoryId: target ? target.categoryId : '',
-        status: 'draft',
-        heroImageBase64: target ? target.heroImageBase64 : '',
-      };
-    },
+    // editorData() {
+    //   const { editingArticleId } = this.$store.state.article;
+    //   const target = this.articles.find((a) => a.id === editingArticleId);
+    //   return {
+    //     title: target ? target.title : '',
+    //     content: target ? target.content : '',
+    //     categoryId: target ? target.categoryId : '',
+    //     status: 'draft',
+    //     heroImageBase64: target ? target.heroImageBase64 : '',
+    //   };
+    // },
     categories() {
       const { categories } = this.$store.state.category;
       return categories;

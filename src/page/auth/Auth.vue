@@ -19,12 +19,23 @@
         <el-input type="email" placeholder="Email" v-model="signin.account"></el-input>
         <el-input show-password placeholder="Password" v-model="signin.password"></el-input>
         <el-button type="primary"
-          :loading="signin.loading"
-          @click="onClickSignin">
+          :loading="signin.generalLoading"
+          @click="onClickSignin('general')">
           確定登入
         </el-button>
       </section>
     </form>
+    <p class="guidance">或</p>
+    <div>
+      <el-button slot="reference" type="primary" plain
+        :loading="signin.guestLoading"
+        @click="onClickSignin('guest')">
+        以訪客登入
+      </el-button>
+      <el-tooltip effect="dark" content="僅有瀏覽無編輯權限" placement="right">
+        <i class="el-icon-warning-outline"></i>
+      </el-tooltip>
+    </div>
   </div>
 </template>
 
@@ -41,7 +52,8 @@ export default {
     signin: {
       account: '',
       password: '',
-      loading: false,
+      generalLoading: false,
+      guestLoading: false,
     },
   }),
   computed: {
@@ -52,7 +64,6 @@ export default {
   },
   watch: {
     apiMsg() {
-      // if (!this.apiMsg.data) return;
       if (this.apiMsg.code === 'auth/register-success') {
         this.$message({
           message: this.apiMsg.data.message,
@@ -75,18 +86,18 @@ export default {
         password: this.register.password,
       });
     },
-    onClickSignin() {
-      this.signin.loading = true;
+    onClickSignin(identity) {
+      this.signin[`${identity}Loading`] = true;
       this.$store.dispatch('auth/signin', {
-        email: this.signin.account,
-        password: this.signin.password,
+        email: this.signin.account || 'guest@gmail.com',
+        password: this.signin.password || '123456',
       }).then((response) => {
         if (response.user) {
           this.$message({
             message: `以 ${response.user.email} 身分登入`,
             type: 'success',
           });
-          this.signin.loading = false;
+          this.signin[`${identity}Loading`] = false;
           this.$router.push({ path: '/dashboard/article' });
         }
       }).catch((error) => {
@@ -107,6 +118,7 @@ export default {
   height: 100%;
   position: relative;
   padding-top: 260px;
+  text-align: center;
   .form {
     width: 300px;
     color: $white;
@@ -121,6 +133,19 @@ export default {
         margin-bottom: 8px;
       }
     }
+    .el-button {
+      margin-top: 8px;
+    }
+  }
+  p.guidance {
+    color: white;
+    font-size: 18px;
+    margin: 60px 0;
+  }
+  i.el-icon-warning-outline {
+    color: white;
+    margin-left: 16px;
+    font-size: 20px;
   }
 }
 </style>
