@@ -15,7 +15,6 @@ const auth = require('./page/auth/Auth.vue').default;
 const dashboardView = require('./views/Dashboard/DashboardView.vue').default;
 const article = require('./page/dashboard/article/Article.vue').default;
 const category = require('./page/dashboard/category/Category.vue').default;
-const comment = require('./page/dashboard/comment/Comment.vue').default;
 
 const firebaseAuth = firebase.auth();
 
@@ -59,10 +58,6 @@ export default new Router({
         {
           path: 'category',
           component: category,
-        },
-        {
-          path: 'comment',
-          component: comment,
         },
       ],
     },

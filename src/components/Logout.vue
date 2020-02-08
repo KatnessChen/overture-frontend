@@ -21,8 +21,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.el-icon-switch-button {
-  color: white;
-  cursor: pointer;
-}
+@import '@/assets/scss/components/logout.scss';
+
 </style>

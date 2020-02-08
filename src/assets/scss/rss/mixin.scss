@@ -1,0 +1,22 @@
+@mixin scrollbars($customScrollbarBG: $scrollbarBG, $customThumbBG: $thumbBG) {
+  &::-webkit-scrollbar {
+    width: 11px;
+  }
+  &::-webkit-scrollbar-track {
+    background: $customScrollbarBG;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $customThumbBG;
+    border-radius: 6px;
+    border: 3px solid $customScrollbarBG;
+  }
+}
+
+@mixin text-hidden($line: 1) {
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+  display: block;
+  display: -webkit-box;
+  -webkit-line-clamp: $line;
+  overflow: hidden;
+}

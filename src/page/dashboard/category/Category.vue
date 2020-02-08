@@ -145,59 +145,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.category-input {
-  width: 266px;
-}
-.el-row {
-  .el-col {
-    text-align: left;
-    max-width: 400px;
-    .el-button {
-      margin-left: 12px;
-    }
-    .el-input {
-      margin-bottom: 12px;
-    }
-  }
-}
-/deep/ .el-collapse {
-  .el-collapse-item__header {
-    .category__title {
-      padding-left: 20px;
-      font-size: 16px;
-      font-weight: bold;
-    }
-    .el-icon-delete, .el-icon-edit-outline {
-      font-size: 16px;
-      &::before {
-        padding: 5px;
-        border-radius: 50%;
-        transition: all .3s ease;
-      }
-      &:hover::before {
-        background-color: $highlight;
-        color: $hover-color;
-      }
-    }
-    .el-icon-delete {
-      margin-left: auto;
-    }
-    .el-icon-edit-outline {
-      margin: 0;
-      margin-left: 5px;
-    }
-    .el-collapse-item__arrow {
-      margin: 0 12px 0 0;
-    }
-  }
-  .el-collapse-item__content {
-    padding-left: 32px;
-    .article__title {
-      font-size: 14px;
-      color: blue;
-      text-align: left;
-      text-decoration: underline;
-    }
-  }
-}
+@import '@/assets/scss/components/page-category.scss';
+
 </style>

@@ -54,33 +54,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.singelArtilce__page {
-  padding: 156px 0 20px 0;
-  .article__wrapper {
-    color: #343434;
-    width: 840px;
-    min-height: calc(100vh - 136px - 40px);
-    margin: auto;
-    background-color: ghostwhite;
-    .article__title {
-      font-size: 32px;
-      padding: 32px;
-    }
-    .article__metadata {
-      display: flex;
-      justify-content: space-between;
-      font-size: 14px;
-      border-bottom: 1px solid #112233;
-      padding-bottom: 12px;
-      padding: 0 32px 12px 32px;
-    }
-    /deep/ .article__content__container {
-      padding: 32px;
-    }
-  }
-}
+@import '@/assets/scss/components/single-article.scss';
 
-.el-icon-edit {
-  cursor: pointer;
-}
 </style>

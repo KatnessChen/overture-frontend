@@ -1,0 +1,32 @@
+.el-menu {
+  box-sizing: border-box;
+  padding-top: 20px;
+  /deep/ .el-menu-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 15px;
+  }
+  /deep/ .logo__wrapper {
+    .logo-main {
+      color: gold;
+      font-size: 30px;
+      text-shadow: .5px .5px orangered;
+    }
+    .logo-slogan {
+      color: goldenrod;
+      font-size: 12px;
+      text-shadow: .5px .5px navy;
+    }
+  }
+  .user__info {
+    color: white;
+    padding: 25px;
+    text-align: left;
+    .user__email {
+      display: inline-block;
+      text-decoration: underline;
+      margin-bottom: 12px;
+    }
+  }
+}

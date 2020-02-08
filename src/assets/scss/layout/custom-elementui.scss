@@ -1,0 +1,12 @@
+.el-pagination {
+  color: $light;
+  li.el-icon.more.btn-quicknext.el-icon-more, button.btn-next, button.btn-prev {
+    color: $light;
+  }
+  .el-pager li, button.btn-next, button.btn-prev, button[disabled] {
+    background-color: transparent;
+  }
+  .el-pager li:hover, button:hover, .number.active {
+    color: $blue;
+  }
+}

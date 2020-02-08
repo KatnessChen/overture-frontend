@@ -8,9 +8,9 @@ import App from './App.vue';
 import firebase from '@/connections/firebase';
 
 // styles
-import '@/scss/reset.scss';
-import '@/scss/rss/element-variables.scss';
-import '@/scss/ckeditor/custom-style.scss';
+import '@/assets/scss/reset.scss';
+import '@/assets/scss/rss/element-variables.scss';
+import '@/assets//scss/ckeditor/custom-style.scss';
 
 Vue.use(ElementUI);
 
