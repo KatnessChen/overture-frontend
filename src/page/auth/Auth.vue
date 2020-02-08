@@ -20,7 +20,7 @@
         <el-input show-password placeholder="Password" v-model="signin.password"></el-input>
         <el-button type="primary"
           :loading="signin.generalLoading"
-          @click="onClickSignin('general')">
+          @click="onClickSignin('admin')">
           確定登入
         </el-button>
       </section>
@@ -88,9 +88,10 @@ export default {
     },
     onClickSignin(identity) {
       this.signin[`${identity}Loading`] = true;
+      const isAdmin = identity === 'admin';
       this.$store.dispatch('auth/signin', {
-        email: this.signin.account || 'guest@gmail.com',
-        password: this.signin.password || '123456',
+        email: isAdmin ? this.signin.account : 'guest@gmail.com',
+        password: isAdmin ? this.signin.password : '123456',
       }).then((response) => {
         if (response.user) {
           this.$message({
@@ -113,39 +114,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.auth__wrapper {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  padding-top: 260px;
-  text-align: center;
-  .form {
-    width: 300px;
-    color: $white;
-    margin: 0 auto 40px auto;
-    text-align: center;
-    .form__title {
-      font-size: 20px;
-      margin-bottom: 12px;
-    }
-    .form__body {
-      .el-input {
-        margin-bottom: 8px;
-      }
-    }
-    .el-button {
-      margin-top: 8px;
-    }
-  }
-  p.guidance {
-    color: white;
-    font-size: 18px;
-    margin: 60px 0;
-  }
-  i.el-icon-warning-outline {
-    color: white;
-    margin-left: 16px;
-    font-size: 20px;
-  }
-}
+@import '@/assets/scss/components/page-auth.scss';
+
 </style>
